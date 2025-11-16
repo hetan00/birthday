@@ -1,0 +1,21 @@
+/* Reset spacing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Make the app fill the whole screen */
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: black;
+  font-family: sans-serif;
+}
+
+/* Optional global text styling */
+p {
+  line-height: 1.5;
+}
+
