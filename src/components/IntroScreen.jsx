@@ -51,7 +51,7 @@ function IntroScreen({ onContinue }) {
         background: "black",
         color: "white",
         fontFamily: "Typewriter, monospace",
-        fontSize: "3rem",
+        fontSize: "1.5rem",
         height: "100vh",
         padding: "2rem",
         display: "flex",

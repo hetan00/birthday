@@ -73,7 +73,7 @@ function BirthdayScene() {
 
   return (
     <div style={{ height: "100vh", position: "relative" }}>
-    <Canvas camera={{ position: [-8, 4.5, -6.2], fov: 70 }} shadows>
+    <Canvas dpr={[1, 1.5]} camera={{ position: [-8, 4.5, -6.2], fov: 70 }} shadows>
         <ambientLight intensity={0.5} />
         <directionalLight
             position={[5, 8, 5]}
@@ -149,7 +149,7 @@ function BirthdayScene() {
 
     </group>
     </Suspense>
-      </Canvas>
+      </Canvas >
 
       {openPhotoIndex !== null && (
   <div
