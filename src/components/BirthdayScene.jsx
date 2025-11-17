@@ -93,7 +93,7 @@ function BirthdayScene() {
     <Environment
         background
         // files="/backgrounds/newyorknight.hdr"
-        files="/backgrounds/water-skyline.hdr"
+        files="/backgrounds/shanghai.hdr"
     />
 
     {/* Rotate the whole birthday setup */}
