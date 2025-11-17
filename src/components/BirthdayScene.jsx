@@ -98,6 +98,8 @@ function BirthdayScene() {
 
     {/* Rotate the whole birthday setup */}
     <group rotation={[0, Math.PI - 5.38, 0]}>
+        
+        
         {/* Textured tablecloth */}
         <TableWithSkirt />
 

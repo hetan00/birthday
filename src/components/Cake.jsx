@@ -29,21 +29,26 @@
 // }
 
 
-
+// Cake.jsx
 import { useGLTF } from "@react-three/drei";
+import { useMemo } from "react";
 
 export default function Cake() {
   const { scene } = useGLTF("/models/cake.glb");
 
+  // clone so hot reload can't mutate the global cached scene
+  const cakeScene = useMemo(() => scene.clone(true), [scene]);
+
   return (
-    <group 
-      position={[0, 0.15, 0]}   // <-- adjust this Y value
-      scale={[0.65, 0.45, 0.65]} // <-- change to your perfect size
+    <primitive
+      object={cakeScene}
+      // put the BOTTOM of the cake roughly on the cloth
+      position={[0, 0.04, 0]}      // ⬅ match your cloth Y (0.02)
+      scale={0.008}                  // ⬅ tweak this to taste: 0.15–0.3
       castShadow
       receiveShadow
-    >
-      <primitive object={scene} />
-    </group>
+    />
   );
 }
+
 
