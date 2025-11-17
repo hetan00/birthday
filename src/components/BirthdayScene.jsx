@@ -1,9 +1,11 @@
+import * as THREE from "three"; // make sure this is at the top
 import { useState, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useTexture, Environment, Text, Sparkles } from "@react-three/drei";
 import Cake from "./Cake";
 import PhotoFrame from "./PhotoFrame";
-import * as THREE from "three"; // make sure this is at the top
+import TableWithSkirt from "./TableWithSkirt";
+
 
 
 
@@ -29,20 +31,37 @@ function Letter({ index, position, onSelect, isOpen }) {
   );
 }
 
-// ✅ Table component: this is the ONLY place we call useTexture
-function Table() {
-  const tableTexture = useTexture("/textures/fabric_cloth.jpg");
+// // ✅ Table component: this is the ONLY place we call useTexture
+// function Table() {
+//   const tableTexture = useTexture("/textures/gray_fabric.jpg");
 
-  tableTexture.wrapS = tableTexture.wrapT = THREE.RepeatWrapping;
-  tableTexture.repeat.set(6, 6);
+//   //tableTexture.wrapS = tableTexture.wrapT = THREE.RepeatWrapping;
+//   //tableTexture.repeat.set(6, 6);
 
-  return (
-    <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
-      <planeGeometry args={[12, 12]} />
-      <meshStandardMaterial map={tableTexture} />
-    </mesh>
-  );
-}
+// return (
+//     <group>
+//       {/* 🪵 Wooden tabletop */}
+//       <mesh position={[0, 1, 0]} castShadow receiveShadow>
+//         {/* a bit smaller than the cloth so it looks like the cloth overhangs */}
+//         <boxGeometry args={[10, 0.4, 10]} />  {/* width, thickness, depth */}
+//         <meshStandardMaterial color="#8b5a2b" />
+//       </mesh>
+
+//       {/* 🧺 Tablecloth lying on top, slightly bigger & slightly higher */}
+//       <mesh
+//         position={[0, 1.21, 0]} // just above the wood so no z-fighting
+//         rotation={[-Math.PI / 2, 0, 0]}
+//         receiveShadow
+//       >
+//         <planeGeometry args={[12, 12]} />  {/* bigger than tabletop */}
+//         <meshStandardMaterial
+//           map={tableTexture}
+//           side={THREE.DoubleSide}
+//         />
+//       </mesh>
+//     </group>
+//   );
+// }
 
 
 
@@ -54,7 +73,7 @@ function BirthdayScene() {
 
   return (
     <div style={{ height: "100vh", position: "relative" }}>
-    <Canvas camera={{ position: [-10.5, 6, -6.2], fov: 60 }} shadows>
+    <Canvas camera={{ position: [-8, 4.5, -6.2], fov: 70 }} shadows>
         <ambientLight intensity={0.5} />
         <directionalLight
             position={[5, 8, 5]}
@@ -73,36 +92,16 @@ function BirthdayScene() {
     {/* 360° environment */}
     <Environment
         background
-        files="/backgrounds/shanghai.hdr"
+        // files="/backgrounds/newyorknight.hdr"
+        files="/backgrounds/water-skyline.hdr"
     />
 
     {/* Rotate the whole birthday setup */}
     <group rotation={[0, Math.PI - 5.38, 0]}>
         {/* Textured tablecloth */}
-        <Table />
+        <TableWithSkirt />
 
-        {/* ------------------- TABLE LEGS (ADD HERE) ------------------- */}
-    {/* <mesh position={[-5.5, -1.5, -5.5]} castShadow>
-      <boxGeometry args={[0.3, 3, 0.3]} />
-      <meshStandardMaterial color="#8b5a2b" />
-    </mesh>
-
-    <mesh position={[5.5, -1.5, -5.5]} castShadow>
-      <boxGeometry args={[0.3, 3, 0.3]} />
-      <meshStandardMaterial color="#8b5a2b" />
-    </mesh>
-
-    <mesh position={[-5.5, -1.5, 5.5]} castShadow>
-      <boxGeometry args={[0.3, 3, 0.3]} />
-      <meshStandardMaterial color="#8b5a2b" />
-    </mesh>
-
-    <mesh position={[5.5, -1.5, 5.5]} castShadow>
-      <boxGeometry args={[0.3, 3, 0.3]} />
-      <meshStandardMaterial color="#8b5a2b" />
-    </mesh> */}
-    {/* ------------------------------------------------------------- */}
-
+ 
         {/* Cake */}
         <Cake />
 
@@ -145,31 +144,7 @@ function BirthdayScene() {
             isOpen={openLetterIndex === 1}
         />
 
-        
-    {/* 🎉 HAPPY BIRTHDAY TEXT IN THE SKY */}
-    <Text
-      position={[0, 6, -15]}   // up and back toward the skyline
-      fontSize={1.4}
-      color="#aed2f3ff"
-      anchorX="center"
-      anchorY="middle"
-      outlineWidth={0.04}
-      outlineColor="#63a1f1ff"
-    >
-      Happy Birthday, Ritik!
-    </Text>
 
-    {/* 🎆 Sparkly “fireworks” behind the text */}
-    <Sparkles
-      count={80}
-      speed={0.8}
-      opacity={1}
-      color="#f0bf98ff"
-      size={6}
-      scale={[18, 10, 8]}   // width/height/depth of sparkles area
-      position={[0, 5.5, -15]}
-    />
-    
     </group>
     </Suspense>
       </Canvas>
